@@ -122,8 +122,8 @@ def get_text(docs):
 
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=900,
-        chunk_overlap=100,
+        chunk_size=200,
+        chunk_overlap=10,
         length_function=tiktoken_len
     )
     chunks = text_splitter.split_documents(text)
@@ -141,7 +141,7 @@ def get_vectorstore(text_chunks):
     return vectordb
 
 def get_conversation_chain(vetorestore):
-    llm =  ChatGoogleGenerativeAI(model="gemini-1.5-pro-latest", temperature = 0)
+    llm =  ChatGoogleGenerativeAI(model="gemini-2.5-flash-lite-preview-06-17", temperature = 0)
     conversation_chain = ConversationalRetrievalChain.from_llm(
             llm=llm, 
             chain_type="stuff", 
